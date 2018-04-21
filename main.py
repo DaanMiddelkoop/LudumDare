@@ -17,7 +17,7 @@ screen = pygame.display.set_mode(size)
 view = [0, 0]
 zoom = 1
 
-gamestate = "NEW"
+gamestate = "PONG"
 
 pong_ball = ball.Ball(width / 2, height / 2, 0.3, 0.707, 0.707, )
 left_player = player.Player(30, "input")
@@ -32,12 +32,16 @@ planet = mass.Mass((width / 2, height / 2), (0, 0), 40)
 
 def transition():
     global ball
-
+    new_ball = mass.Mass((ball.x, ball.y), (ball.dir_x * ball.speed, \
+        ball.dir_y * ball.speed), 10)
+    ball = new_ball
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                transition()
             if event.button == 4:
                 zoom *= 1.1
             if event.button == 5:

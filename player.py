@@ -6,12 +6,12 @@ class Player(object):
         self.v_pos = 100
         self.strat = strat
 
-    def update(self):
+    def update(self, dt):
         if self.strat == "input":
             if pygame.key.get_pressed()[pygame.K_w]:
-                self.v_pos += 1
+                self.v_pos += 0.3 * dt
             if pygame.key.get_pressed()[pygame.K_s]:
-                self.v_pos -= 1
+                self.v_pos -= 0.3 * dt
         print(self.v_pos)
 
     def draw(self, screen):

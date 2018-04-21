@@ -17,6 +17,8 @@ zoom = 1
 gamestate = "PONG"
 
 left_player = player.Player(30, "input")
+clock = pygame.time.Clock()
+
 
 while True:
     for event in pygame.event.get():
@@ -27,6 +29,8 @@ while True:
             if event.button == 5:
                 zoom /= 1.1
 
+    dt = clock.tick()
+
     """
     Updates and logic
     """
@@ -36,7 +40,7 @@ while True:
         view[1] += mov[1] * 1 / zoom
 
     if gamestate == "PONG":
-        left_player.update()
+        left_player.update(dt)
     elif gamestate == "TRANSITION":
         pass
     elif gamestate == "NEW":

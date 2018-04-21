@@ -1,6 +1,7 @@
 import sys
 import pygame
 import player
+import ball
 import mass
 import numpy as np
 
@@ -18,7 +19,12 @@ zoom = 1
 
 gamestate = "NEW"
 
+pong_ball = ball.Ball(width / 2, height / 2, 0.3, 0.707, 0.707, )
 left_player = player.Player(30, "input")
+right_player = player.Player(width - 30, "ai")
+pong_ball.p1 = left_player
+pong_ball.p2 = right_player
+
 clock = pygame.time.Clock()
 
 planet = mass.Mass((width / 2, height / 2), (0, 0), 40)

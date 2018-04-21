@@ -1,5 +1,6 @@
 import sys
 import pygame
+import player
 
 pygame.init()
 
@@ -14,6 +15,8 @@ view = [0, 0]
 zoom = 1
 
 gamestate = "PONG"
+
+left_player = player.Player(30, "input")
 
 while True:
     for event in pygame.event.get():
@@ -30,10 +33,10 @@ while True:
     mov = pygame.mouse.get_rel()
     if (pygame.mouse.get_pressed()[0]):
         view[0] += mov[0] * 1 / zoom
-        view[1] += mov[1] * 1 /
+        view[1] += mov[1] * 1 / zoom
 
     if gamestate == "PONG":
-        pass
+        left_player.update()
     elif gamestate == "TRANSITION":
         pass
     elif gamestate == "NEW":
@@ -43,5 +46,7 @@ while True:
     Drawing
     """
     screen.fill(black)
+
+    left_player.draw(screen)
 
     pygame.display.flip()

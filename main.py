@@ -28,14 +28,21 @@ right_player.ball = pong_ball
 
 clock = pygame.time.Clock()
 
-planet = mass.Mass((width / 2, height / 2), (0, 0), 10)
+planet = mass.Mass((width / 2, height / 2), (0, 0), 40)
 # new_left_player?
 
+def transition():
+    global ball
+    new_ball = mass.Mass((ball.x, ball.y), (ball.dir_x * ball.speed, \
+        ball.dir_y * ball.speed), 10)
+    ball = new_ball
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                transition()
             if event.button == 4:
                 zoom *= 1.1
             if event.button == 5:

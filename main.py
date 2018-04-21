@@ -13,6 +13,8 @@ screen = pygame.display.set_mode(size)
 view = [0, 0]
 zoom = 1
 
+gamestate = "PONG"
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
@@ -28,7 +30,14 @@ while True:
     mov = pygame.mouse.get_rel()
     if (pygame.mouse.get_pressed()[0]):
         view[0] += mov[0] * 1 / zoom
-        view[1] += mov[1] * 1 / zoom
+        view[1] += mov[1] * 1 /
+
+    if gamestate == "PONG":
+        pass
+    elif gamestate == "TRANSITION":
+        pass
+    elif gamestate == "NEW":
+        pass
 
     """
     Drawing

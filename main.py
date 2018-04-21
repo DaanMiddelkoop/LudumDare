@@ -51,7 +51,7 @@ while True:
     elif gamestate == "NEW":
         planet.draw(screen)
         pass
-s
+
     """
     Drawing
     """

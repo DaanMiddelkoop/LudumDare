@@ -1,10 +1,12 @@
 import pygame
 
 class Player(object):
-    def __init__(self, h_pos, strat):
-        self.h_pos = h_pos
-        self.v_pos = 100
+    def __init__(self, x, strat):
+        self.x = x
+        self.y = 100
         self.strat = strat
+        self.collision_width = 10
+        self.collision_height = 100
 
     def update(self, dt):
         if self.strat == "input":
@@ -16,4 +18,4 @@ class Player(object):
 
     def draw(self, screen):
         pygame.draw.rect(screen, (255, 255, 255),
-            pygame.Rect(self.h_pos, self.v_pos, 10, 100))
+            pygame.Rect(self.x, self.y, self.collision_width, self.collision_height))

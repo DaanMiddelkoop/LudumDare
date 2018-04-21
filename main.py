@@ -16,13 +16,16 @@ screen = pygame.display.set_mode(size)
 view = [0, 0]
 zoom = 1
 
-gamestate = "PONG"
+gamestate = "NEW"
 
 left_player = player.Player(30, "input")
 clock = pygame.time.Clock()
 
-planet = mass.Mass((width / 2, height / 2), (0, 0), 10)
+planet = mass.Mass((width / 2, height / 2), (0, 0), 40)
 # new_left_player?
+
+def transition():
+    global ball
 
 
 while True:

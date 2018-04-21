@@ -21,9 +21,10 @@ gamestate = "PONG"
 
 pong_ball = ball.Ball(width / 2, height / 2, 0.3, 0.707, 0.707, width, height)
 left_player = player.Player(30, "input")
-right_player = player.Player(width - 30, "ai")
+right_player = player.Player(width - 30 - 25, "ai")
 pong_ball.p1 = left_player
 pong_ball.p2 = right_player
+right_player.ball = pong_ball
 
 clock = pygame.time.Clock()
 
@@ -52,7 +53,9 @@ while True:
 
     if gamestate == "PONG":
         left_player.update(dt)
+        right_player.update(dt)
         pong_ball.update(dt)
+
     elif gamestate == "TRANSITION":
         pass
     elif gamestate == "NEW":
@@ -66,7 +69,9 @@ while True:
 
     if gamestate == "PONG":
         left_player.draw(screen)
+        right_player.draw(screen)
         pong_ball.draw(screen)
+
     elif gamestate == "TRANSITION":
         pass
     elif gamestate == "NEW":

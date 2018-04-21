@@ -1,7 +1,6 @@
 import pygame
 import math
 import numpy as np
-from util import log
 
 DENSITY = 1
 HISTORY = True
@@ -22,7 +21,6 @@ class Mass(object):
         f_res = np.array([0.0, 0.0])
 
         if self.collided:
-            log("handling collision: ", self.newv)
             self.pos += self.newv * dt
             self.vel = self.newv
             self.newv = np.array([0.0, 0.0])
@@ -92,23 +90,23 @@ class Mass(object):
         #log(self.vel)
 
 
-    def draw(self, screen, view, zoom, frame, draw_history):
+    def draw(self, screen):
         color = (247, 238, 195)
 
-        if HISTORY:
-            if frame % 3 == 0:
-                self.history.append(self.pos.tolist())
-                if len(self.history) > 10000:
-                    del self.history[0]
+        # if HISTORY:
+        #     if frame % 3 == 0:
+        #         self.history.append(self.pos.tolist())
+        #         if len(self.history) > 10000:
+        #             del self.history[0]
+        #
+        #     if len(self.history) >= 2 and draw_history:
+        #         pygame.draw.lines(screen, (100, 100, 100), False, self.history)
+        #         color = (255, 100, 100)
 
-            if len(self.history) >= 2 and draw_history:
-                pygame.draw.lines(screen, (100, 100, 100), False, self.history)
-                color = (255, 100, 100)
 
+        x = int((self.pos[0]))
+        y = int((self.pos[1]))
 
-        x = int((self.pos[0] + view[0]) * zoom)
-        y = int((self.pos[1] + view[1]) * zoom)
-
-        pygame.draw.circle(screen, color, (x, y), int(self.size * zoom))
+        pygame.draw.circle(screen, color, (x, y), int(self.size))
 
         pygame.draw.circle(screen, (0, 0, 0), (x, y), 0)

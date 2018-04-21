@@ -2,6 +2,8 @@ import sys
 import pygame
 import player
 import ball
+import mass
+import numpy as np
 
 pygame.init()
 
@@ -24,6 +26,9 @@ pong_ball.p1 = left_player
 pong_ball.p2 = right_player
 
 clock = pygame.time.Clock()
+
+planet = mass.Mass((width / 2, height / 2), (0, 0), 10)
+# new_left_player?
 
 
 while True:
@@ -50,6 +55,7 @@ while True:
     elif gamestate == "TRANSITION":
         pass
     elif gamestate == "NEW":
+        planet.draw(screen)
         pass
 
     """
@@ -57,6 +63,12 @@ while True:
     """
     screen.fill(black)
 
-    left_player.draw(screen)
+    if gamestate == "PONG":
+        left_player.draw(screen)
+    elif gamestate == "TRANSITION":
+        pass
+    elif gamestate == "NEW":
+        planet.draw(screen)
+        pass
 
     pygame.display.flip()

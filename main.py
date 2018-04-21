@@ -19,7 +19,7 @@ zoom = 1
 
 gamestate = "PONG"
 
-pong_ball = ball.Ball(width / 2, height / 2, 0.3, 0.707, 0.707, )
+pong_ball = ball.Ball(width / 2, height / 2, 0.3, 0.707, 0.707, width, height)
 left_player = player.Player(30, "input")
 right_player = player.Player(width - 30, "ai")
 pong_ball.p1 = left_player
@@ -52,6 +52,7 @@ while True:
 
     if gamestate == "PONG":
         left_player.update(dt)
+        pong_ball.update(dt)
     elif gamestate == "TRANSITION":
         pass
     elif gamestate == "NEW":
@@ -65,6 +66,7 @@ while True:
 
     if gamestate == "PONG":
         left_player.draw(screen)
+        pong_ball.draw(screen)
     elif gamestate == "TRANSITION":
         pass
     elif gamestate == "NEW":

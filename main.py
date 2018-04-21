@@ -19,7 +19,7 @@ zoom = 1
 
 gamestate = "PONG"
 
-pong_ball = ball.Ball(width / 2, height / 2, 0.3, 0.707, 0.707, width, height)
+pong_ball = ball.Ball(width / 2, height / 2, 0.03, 0.707, 0.707, width, height)
 left_player = player.Player(30, "input")
 right_player = player.Player(width - 30, "ai")
 pong_ball.p1 = left_player
@@ -28,13 +28,15 @@ pong_ball.p2 = right_player
 clock = pygame.time.Clock()
 
 planet = mass.Mass((width / 2, height / 2), (0, 0), 40)
-# new_left_player?
+ball = pong_ball
 
 def transition():
     global ball
-    new_ball = mass.Mass((ball.x, ball.y), (ball.dir_x * ball.speed, \
+    global gamestate
+    ball = mass.Mass((ball.x, ball.y), (ball.dir_x * ball.speed, \
         ball.dir_y * ball.speed), 10)
-    ball = new_ball
+
+    gamestate = "NEW"
 
 while True:
     for event in pygame.event.get():
@@ -52,6 +54,7 @@ while True:
     """
     Updates and logic
     """
+    print(gamestate)
     mov = pygame.mouse.get_rel()
     if (pygame.mouse.get_pressed()[0]):
         view[0] += mov[0] * 1 / zoom
@@ -78,6 +81,7 @@ while True:
         pass
     elif gamestate == "NEW":
         planet.draw(screen)
+        ball.draw(screen)
         pass
 
     pygame.display.flip()

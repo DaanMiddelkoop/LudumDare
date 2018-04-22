@@ -17,13 +17,15 @@ class Ball(object):
     def update(self, dt):
         if (Ball.collision_check(self.x, self.y, self.collision_width, self.collision_height,
                 self.p1.x, self.p1.y, self.p1.collision_width, self.p1.collision_height)):
+            if self.dir_x < 0:
+                self.p1.collision_height -= 25
             self.dir_x = abs(self.dir_x)
-            self.p1.collision_height -= 25
 
         if (Ball.collision_check(self.x, self.y, self.collision_width, self.collision_height,
                 self.p2.x, self.p2.y, self.p2.collision_width, self.p2.collision_height)):
+            if self.dir_x > 0:
+                self.p2.collision_height -= 25
             self.dir_x = -abs(self.dir_x)
-            self.p2.collision_height -= 25
 
         if self.x < 0:
             self.dir_x = abs(self.dir_x)

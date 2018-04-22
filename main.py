@@ -81,12 +81,14 @@ while True:
         ball.update(dt, masses)
         ball.apply_move(dt)
 
-        for mass in masses:
-            mass.update(dt, masses)
+        DIVISOR = 300
+        for i in range(0, DIVISOR):
+            ddt = dt / DIVISOR
+            for mass in masses:
+                mass.update(ddt, masses)
 
-        masses[1].apply_move(dt)
-        # for mass in masses:
-        #     mass.apply_move(dt)
+            for mass in masses:
+                mass.apply_move(ddt)
 
 
     """

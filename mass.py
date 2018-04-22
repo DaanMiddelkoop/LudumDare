@@ -7,7 +7,7 @@ HISTORY = True
 GRAVITY = True
 
 class Mass(object):
-    def __init__(self, pos, vel, size, screen_size, can_collide=False):
+    def __init__(self, pos, vel, size, screen_size, can_collide=True):
         self.pos = pos
         self.vel = vel
         self.size = size
@@ -28,23 +28,6 @@ class Mass(object):
             self.newv = np.array([0.0, 0.0])
             self.collided = False
 
-        if GRAVITY:
-            for mass in masses:
-                if mass is self:
-                    continue
-
-                m1  = self.mass
-                m2  = mass.mass
-                G   = 6.67408 * math.pow(10, 0)             # G for the lazy god
-                r12 = np.linalg.norm(self.pos - mass.pos)   # distance
-                ru  = (self.pos - mass.pos) / r12           # unit vector
-
-                f_grav = (-G * (m1 * m2) / math.pow(r12, 2)) * ru
-
-                f_res += f_grav
-
-        acc = f_res / self.mass
-        self.vel += acc * dt
 
         # collision stuff
         for mass in masses:
@@ -81,6 +64,25 @@ class Mass(object):
             self.vel_after_collision = self.vel * [1, -1]
             self.collided = True
 
+        if GRAVITY:
+            for mass in masses:
+                if mass is self:
+                    continue
+
+                m1  = self.mass
+                m2  = mass.mass
+                G   = 6.67408 * math.pow(10, 0)             # G for the lazy god
+                r12 = np.linalg.norm(self.pos - mass.pos)   # distance
+                ru  = (self.pos - mass.pos) / r12           # unit vector
+
+                f_grav = (-G * (m1 * m2) / math.pow(r12, 2)) * ru
+
+                f_res += f_grav
+
+        acc = f_res / self.mass
+        self.vel += acc * dt
+
+
 
     def apply_move(self, dt):
         # apply force vector to position
@@ -90,7 +92,6 @@ class Mass(object):
 
         self.pos += self.vel * dt
         #log(self.vel)
-        print(self.vel)
 
 
     def draw(self, screen):

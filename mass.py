@@ -2,7 +2,7 @@ import pygame
 import math
 import numpy as np
 
-DENSITY = 1
+DENSITY = 0.0001
 HISTORY = True
 GRAVITY = True
 

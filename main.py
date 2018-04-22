@@ -29,7 +29,7 @@ right_player.ball = pong_ball
 clock = pygame.time.Clock()
 
 masses = []
-planet = mass.Mass(np.array([width / 2, height / 2]), (0, 0), 30, size)
+planet = mass.Mass(np.array([width / 2, height / 2]), (0, 0), 10, size)
 planet.mass = 0.5
 print(planet.mass)
 masses.append(planet)

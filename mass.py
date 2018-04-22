@@ -34,7 +34,7 @@ class Mass(object):
             if mass is self:
                 continue
 
-            if np.linalg.norm(self.pos - mass.pos) > mass.size + self.size:
+            if np.linalg.norm((self.pos + np.multiply(self.vel, dt)) - mass.pos) > mass.size + self.size:
                 # no collision, carry on
                 continue
 
@@ -57,11 +57,20 @@ class Mass(object):
             self.vel_after_collision = vel
             self.collided = True
 
-        if self.pos[0] - self.size < 0 or self.pos[0] + self.size > self.screen_size[0]:
-            self.vel_after_collision = self.vel * [-1, 1]
+        if self.pos[0] - self.size < 0:
+            self.vel_after_collision = np.array([abs(self.vel[0]), self.vel[1]])
             self.collided = True
-        if self.pos[1] - self.size < 0 or self.pos[1] + self.size > self.screen_size[1]:
-            self.vel_after_collision = self.vel * [1, -1]
+
+        if self.pos[0] + self.size > self.screen_size[0]:
+            self.vel_after_collision = np.array([-abs(self.vel[0]), self.vel[1]])
+            self.collided = True
+
+        if self.pos[1] - self.size < 0:
+            self.vel_after_collision = np.array([self.vel[0], abs(self.vel[1])])
+            self.collided = True
+
+        if self.pos[1] + self.size > self.screen_size[1]:
+            self.vel_after_collision = np.array([self.vel[0], -abs(self.vel[1])])
             self.collided = True
 
         if GRAVITY:
@@ -91,6 +100,7 @@ class Mass(object):
             self.vel = self.vel_after_collision
 
         self.pos += self.vel * dt
+
         #log(self.vel)
 
 

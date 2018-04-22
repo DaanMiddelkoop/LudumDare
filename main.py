@@ -19,7 +19,7 @@ zoom = 1
 
 gamestate = "PONG"
 
-pong_ball = ball.Ball(width / 2, height / 2, 0.3, 0.707, 0.707, width, height)
+pong_ball = ball.Ball(width / 2, height / 2, 0.03, 0.707, 0.707, width, height)
 left_player = player.Player(30, "input")
 right_player = player.Player(width - 30 - 25, "ai")
 pong_ball.p1 = left_player

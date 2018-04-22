@@ -7,7 +7,7 @@ HISTORY = True
 GRAVITY = True
 
 class Mass(object):
-    def __init__(self, pos, vel, size):
+    def __init__(self, pos, vel, size, screen_size, can_collide=False):
         self.pos = pos
         self.vel = vel
         self.size = size
@@ -15,6 +15,8 @@ class Mass(object):
         self.newv = np.array([0.0, 0.01])
         self.collided = False
         self.history = []
+        self.screen_size = screen_size
+        self.can_collide = can_collide
 
     def update(self, dt, masses):
         # calculate new force vector
@@ -33,7 +35,7 @@ class Mass(object):
 
                 m1  = self.mass
                 m2  = mass.mass
-                G   = 6.67408 * math.pow(10, 0)            # G for the lazy god
+                G   = 6.67408 * math.pow(10, 0)             # G for the lazy god
                 r12 = np.linalg.norm(self.pos - mass.pos)   # distance
                 ru  = (self.pos - mass.pos) / r12           # unit vector
 
@@ -72,10 +74,10 @@ class Mass(object):
             self.vel_after_collision = vel
             self.collided = True
 
-        if self.pos[0] - self.size < 0 or self.pos[0] + self.size > 1000:
+        if self.pos[0] - self.size < 0 or self.pos[0] + self.size > self.screen_size[0]:
             self.vel_after_collision = self.vel * [-1, 1]
             self.collided = True
-        if self.pos[1] - self.size < 0 or self.pos[1] + self.size > 1000:
+        if self.pos[1] - self.size < 0 or self.pos[1] + self.size > self.screen_size[1]:
             self.vel_after_collision = self.vel * [1, -1]
             self.collided = True
 
@@ -88,6 +90,7 @@ class Mass(object):
 
         self.pos += self.vel * dt
         #log(self.vel)
+        print(self.vel)
 
 
     def draw(self, screen):
